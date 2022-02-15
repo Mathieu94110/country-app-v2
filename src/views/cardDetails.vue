@@ -21,74 +21,28 @@ goBack(){
 
 <template>
 <Header/>
-<div class="card-details-container">
 
-    <div class="go-back-container">
-     <button class="go-back-button" @click.prevent="goBack()">
-               <font-awesome-icon icon="arrow-left" color="gray" /> 
-              <span class="go-back-button-text">Back</span>
-    </button>
-    </div>
-
-<h1>Card details</h1>
+ <div v-for="(item, index) in country" :key="index">
+   
+          <CountryDetails
+            :key="item.name"
+            :flag="item.flags.png"
+            :name="item.name"
+            :nativeName="item.nativeName"
+            :population="item.population"
+            :region="item.region"
+            :subregion="item.subregion"
+            :capital="item.capital"
+            :topLevelDomain="item.topLevelDomain[0]"
+            :currencie="item.currencies && item.currencies"
+            :languages="item.languages"
+            :borders="item.borders"
+          />
 </div>
 
 </template>
 
 
 <style>
-body{
-    font-size:16px;
-}
-.card-details-container{
-    margin:40px;
-}
-.go-back-container{
-    display: flex;
-flex-direction: column;
-justify-content: center;
-height: 180px;
-width: 100%;
-
- 
-}
-   .go-back-button{
-    width: 130px;
-    height: 40px;
-    border-radius: 4px;
-    color:var(--text);
-    box-shadow: rgb(60 64 67 / 15%) 0px 2px 6px 2px;
-    background-color: var(--element);
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-  
-}
-  .go-back-button-text{
-        padding-left: 10px;
-        font-weight: 600;
-        font-size:16px;
-    }
-
-    @media (max-width: 514px) and (min-width: 350px)  {
-
-.go-back-container{
-
-height: 80px;
-}
-.card-details-items{
-  display: block;
-
-}  
-.card-details-items-img{
-            height: 200px;     
-}
-
-.card-details-items-img img{
-        margin: 0;
-            height: 100%;
-            width: 100%;
-        }   
-}
 
 </style>

@@ -3,7 +3,21 @@
 <script>
 export default {
   name: 'SearchBar',
+ data() {
+    return {
+      keyword: null,
+    }
+  },
+    methods:{
+    // eslint-disable-next-line no-unused-vars
+    passSearchedValue(event) {
 
+    
+    this.$emit('childToParent', this.keyword)
+    
+  }
+  
+}
 }
 </script>
 
@@ -14,6 +28,8 @@ export default {
         type="text"
         name="country"
         placeholder="Search for a country"
+        v-model="keyword"
+        :keyup="passSearchedValue"
       />
     </div>
 </template>

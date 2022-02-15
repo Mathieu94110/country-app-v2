@@ -13,10 +13,13 @@ components:{
 },
   data(){
     return{
-countries: []
+countries: [],
+fromChild:"",
   }
 
 },
+
+
   beforeMount(){
     this.getCountries();
   },
@@ -27,9 +30,33 @@ methods: {
       const data = await res.json();
       console.log(data)
       this.countries = data;
+    },
+  async handleSearchCallback(searchedCountry){
+       if (searchedCountry.trim()) {
+      try {
+        const searchedCountries = await fetch(
+          `https://restcountries.com/v2/name/${searchedCountry}`
+        );
+        const response = await searchedCountries.json();
+        this.countries = response;
+      } catch (error) {
+        console.error(error);
+      } 
+    } else {
+      this.getCountries();
     }
-}
-
+  },
+   onChildClick (value) {
+     console.log(value)
+      this.fromChild = value
+    }
+},
+ watch: {
+    fromChild(val) {
+   console.log(this.fromChild);
+   console.log(val);
+    }
+  }
 
 }
 </script>
@@ -38,7 +65,7 @@ methods: {
 <div class="home-cards-container">
 
       <div className="researches-container">
-          <SearchBar/>
+          <SearchBar  :childToParent="onChildClick" />
          <filterByRegion/>
       </div>
 <CountryList :countries="countries"/>

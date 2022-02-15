@@ -5,7 +5,7 @@ export default {
   name: 'SearchBar',
  data() {
     return {
-      keyword: null,
+      keyword: "",
     }
   },
     methods:{
@@ -29,7 +29,7 @@ export default {
         name="country"
         placeholder="Search for a country"
         v-model="keyword"
-        :keyup="passSearchedValue"
+        v-on:keyup="passSearchedValue"
       />
     </div>
 </template>

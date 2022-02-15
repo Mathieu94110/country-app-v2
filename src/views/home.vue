@@ -47,7 +47,7 @@ methods: {
     }
   },
    onChildClick (value) {
-     console.log(value)
+     console.log("val from child =",value)
       this.fromChild = value
     }
 },
@@ -65,7 +65,7 @@ methods: {
 <div class="home-cards-container">
 
       <div className="researches-container">
-          <SearchBar  :childToParent="onChildClick" />
+          <SearchBar  v-on:childToParent="onChildClick" />
          <filterByRegion/>
       </div>
 <CountryList :countries="countries"/>

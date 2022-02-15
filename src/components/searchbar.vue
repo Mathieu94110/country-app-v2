@@ -11,10 +11,7 @@ export default {
     methods:{
     // eslint-disable-next-line no-unused-vars
     passSearchedValue(event) {
-
-    
-    this.$emit('childToParent', this.keyword)
-    
+    this.$emit('updateBySearch', this.keyword)
   }
   
 }

@@ -8,15 +8,15 @@ components:{
   Card
 },
  props: {
-    countries: Array
+    filtered: Array
   },
 }
 </script>
 
 <template>
-    <div v-if="countries.length" class="countries-list-container">
+    <div v-if="filtered.length" class="countries-list-container">
       <Card 
-v-for="(country, index ) in countries" 
+v-for="(country, index ) in filtered" 
 :index="index"
 :img="country.flags.png"
 :key="country.name.common"

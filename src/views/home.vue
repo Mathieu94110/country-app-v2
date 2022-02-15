@@ -14,7 +14,7 @@ components:{
   data(){
     return{
 countries: [],
-fromChild:"",
+searchedCountry:null,
   }
 
 },
@@ -31,44 +31,37 @@ methods: {
       console.log(data)
       this.countries = data;
     },
-  async handleSearchCallback(searchedCountry){
-       if (searchedCountry.trim()) {
-      try {
-        const searchedCountries = await fetch(
-          `https://restcountries.com/v2/name/${searchedCountry}`
-        );
-        const response = await searchedCountries.json();
-        this.countries = response;
-      } catch (error) {
-        console.error(error);
-      } 
-    } else {
-      this.getCountries();
-    }
-  },
-   onChildClick (value) {
-     console.log("val from child =",value)
-      this.fromChild = value
+  
+   onSearch (value) {
+      this.searchedCountry = value
     }
 },
- watch: {
-    fromChild(val) {
-   console.log(this.fromChild);
-   console.log(val);
+computed: {
+  filtered() {
+    if(this.searchedCountry){
+    return this.countries.filter(item => {
+          return this.searchedCountry
+            .toLowerCase()
+            .split(" ")
+            .every(v => item.name.common.toLowerCase().includes(v));
+        });
+    
     }
+   return this.countries;
   }
-
 }
+}
+
 </script>
 
 <template>
 <div class="home-cards-container">
 
       <div className="researches-container">
-          <SearchBar  v-on:childToParent="onChildClick" />
+          <SearchBar  v-on:updateBySearch="onSearch" />
          <filterByRegion/>
       </div>
-<CountryList :countries="countries"/>
+<CountryList :filtered="filtered"/>
 </div>
 
 

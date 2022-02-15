@@ -5,7 +5,6 @@ export default {
   name: 'filterByRegion',
 methods:{
      onChange(e) {
-              console.log(e.target.value);
               const filteredRegion = e.target.value;
               this.$emit('selectedRegion', filteredRegion )
           }

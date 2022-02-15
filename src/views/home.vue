@@ -29,7 +29,6 @@ methods: {
    async getCountries(){
       const res = await fetch('https://restcountries.com/v3.1/all');
       const data = await res.json();
-      console.log(data)
       this.countries = data;
     },
   
@@ -37,7 +36,6 @@ methods: {
       this.searchedCountry = value
     },
     onSelect(value){
-      console.log("Region papa",value)
       this.region = value
     }
 },

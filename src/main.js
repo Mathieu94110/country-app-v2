@@ -1,16 +1,3 @@
-/* import { createApp } from 'vue'
-import App from './App.vue'
-import Vue from "vue"
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-library.add(faCoffee)
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-
-createApp(App).mount('#app')
- */
 import App from './App.vue'
 import { createApp } from 'vue'
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -23,9 +10,10 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 library.add(far);
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
+import router from "./router";
 
 const app = createApp(App);
-
+app.use(router);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 // add necessary dependencies...

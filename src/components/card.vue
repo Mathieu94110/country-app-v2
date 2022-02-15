@@ -1,5 +1,6 @@
 <template>
       <div className="country-card">
+      <router-link to="/details">
       <div className="country-card-container">
         <img  alt="product-image" 
         :src="img" />
@@ -19,6 +20,7 @@
           </h3>
         </div>
       </div>
+      </router-link>
     </div>
 </template>
 

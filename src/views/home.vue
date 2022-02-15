@@ -2,12 +2,10 @@
 
 <script>
 import Card from "../components/card";
-import Header from "../components/header";
 export default {
   name: 'Home',
 components:{
   Card,
-  Header
 },
   data(){
     return{
@@ -33,7 +31,6 @@ methods: {
 </script>
 
 <template>
-<Header/>
 <div class="home-cards-container">
 <Card 
 v-for="(country, index ) in allCoutries" 

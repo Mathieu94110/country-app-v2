@@ -21,22 +21,14 @@ goBack(){
 
 <template>
 <Header/>
-<div>
-
-
+<div class="card-details-container">
 
     <div class="go-back-container">
      <button class="go-back-button" @click.prevent="goBack()">
                <font-awesome-icon icon="arrow-left" color="gray" /> 
               <span class="go-back-button-text">Back</span>
-            </button>
-         
-        </div>
-
-
-
-
-
+    </button>
+    </div>
 
 <h1>Card details</h1>
 </div>
@@ -45,7 +37,12 @@ goBack(){
 
 
 <style>
-
+body{
+    font-size:16px;
+}
+.card-details-container{
+    margin:40px;
+}
 .go-back-container{
     display: flex;
 flex-direction: column;
@@ -70,7 +67,7 @@ width: 100%;
   .go-back-button-text{
         padding-left: 10px;
         font-weight: 600;
-        font-size: 16px;
+        font-size:16px;
     }
 
     @media (max-width: 514px) and (min-width: 350px)  {
@@ -84,8 +81,7 @@ height: 80px;
 
 }  
 .card-details-items-img{
-            height: 200px;
-     
+            height: 200px;     
 }
 
 .card-details-items-img img{

@@ -1,15 +1,19 @@
 
 
 <script>
-import Card from "../components/card";
+import CountryList from "../components/countryList"
+import SearchBar from "../components/searchbar";
+import filterByRegion from "../components/filterByRegion";
 export default {
   name: 'Home',
 components:{
-  Card,
+  SearchBar, 
+  filterByRegion, 
+  CountryList
 },
   data(){
     return{
-allCoutries: []
+countries: []
   }
 
 },
@@ -22,7 +26,7 @@ methods: {
       const res = await fetch('https://restcountries.com/v3.1/all');
       const data = await res.json();
       console.log(data)
-      this.allCoutries = data;
+      this.countries = data;
     }
 }
 
@@ -32,28 +36,56 @@ methods: {
 
 <template>
 <div class="home-cards-container">
-<Card 
-v-for="(country, index ) in allCoutries" 
-:index="index"
-:img="country.flags.png"
-:key="country.name.common"
-:country="country.name.common"
-:population="country.population"
-:region="country.region"
-:capital="country.capital || undefined"
->
-</Card>
+
+      <div className="researches-container">
+          <SearchBar/>
+         <filterByRegion/>
+      </div>
+<CountryList :countries="countries"/>
 </div>
 
 
 </template>
 <style>
+body{
+    font-size:14px;
+}
 .home-cards-container{
   display:flex;
-  justify-content:space-evenly;
+  justify-content:space-between;
   flex-wrap:wrap;
   margin:40px;
 
+}
+
+.home-container{
+  height: calc(100% - 64px);
+  padding: 0 4px;
+  background-color: var(--background)
+}
+
+.researches-container{
+    height: 160px;
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    margin: 28px 20px 0 20px;
+    >.searchInput, > div select{
+        border-radius: 5px;
+            box-shadow:rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    }
+}
+@media (min-width:890px){
+.home-container{
+  padding: 0 40px;
+}
+.researches-container{
+         width: 100%;
+         height: 120px;
+         display: flex;
+         justify-content: space-between;
+         margin: 0;
+}
 }
 </style>
 

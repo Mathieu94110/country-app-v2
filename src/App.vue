@@ -15,11 +15,17 @@ export default {
 </script>
 
 <style>
+*{
+  font-family: 'Nunito Sans';
+  text-decoration: none;
+  list-style-type: none;
 
+}
 body{
   margin:0px;
   padding:0px;
   text-align:center;
+  background: hsl(0, 0%, 98%);
 }
 #app {
 width:100%;
@@ -28,3 +34,5 @@ margin:0px;
 padding:0px
 }
 </style>
+
+

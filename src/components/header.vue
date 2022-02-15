@@ -31,7 +31,6 @@ export default {
 
 }
       .home-title{
-    font-size: 16px;
     color: var(--text);
     max-width: 50%;
 }

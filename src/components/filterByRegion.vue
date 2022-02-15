@@ -3,7 +3,13 @@
 <script>
 export default {
   name: 'filterByRegion',
-
+methods:{
+     onChange(e) {
+              console.log(e.target.value);
+              const filteredRegion = e.target.value;
+              this.$emit('selectedRegion', filteredRegion )
+          }
+}
 }
 </script>
 
@@ -11,9 +17,9 @@ export default {
     <div>
       <select
         className="select-filter"
-  
+        @change="onChange($event)"
       >
-        <option value="">Filter by Region</option>
+        <option value="all regions">Filter by Region</option>
         <option value="africa">Africa</option>
         <option value="americas">Americas</option>
         <option value="asia">Asia</option>

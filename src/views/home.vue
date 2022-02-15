@@ -15,6 +15,7 @@ components:{
     return{
 countries: [],
 searchedCountry:null,
+region: '',
   }
 
 },
@@ -34,6 +35,10 @@ methods: {
   
    onSearch (value) {
       this.searchedCountry = value
+    },
+    onSelect(value){
+      console.log("Region papa",value)
+      this.region = value
     }
 },
 computed: {
@@ -43,10 +48,17 @@ computed: {
           return this.searchedCountry
             .toLowerCase()
             .split(" ")
-            .every(v => item.name.common.toLowerCase().includes(v));
+            .every(c => item.name.common.toLowerCase().includes(c));
         });
     
-    }
+    }else if(this.region !== '' || this.region !== 'all regions'){
+   return this.countries.filter(item => {
+          return this.region
+            .toLowerCase()
+            .split(" ")
+            .every(r => item.region.toLowerCase().match(r));
+        });
+    } 
    return this.countries;
   }
 }
@@ -59,7 +71,7 @@ computed: {
 
       <div className="researches-container">
           <SearchBar  v-on:updateBySearch="onSearch" />
-         <filterByRegion/>
+         <filterByRegion @selectedRegion="onSelect($event)"/>
       </div>
 <CountryList :filtered="filtered"/>
 </div>

@@ -1,10 +1,10 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
   <Home />
 </template>
 
 <script>
-import Home from "./pages/home.vue"
+import Home from "./views/home.vue"
+
 
 export default {
   name: 'App',
@@ -15,12 +15,16 @@ export default {
 </script>
 
 <style>
+
+body{
+  margin:0px;
+  padding:0px;
+  text-align:center;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+width:100%;
+height:100%;
+margin:0px;
+padding:0px
 }
 </style>

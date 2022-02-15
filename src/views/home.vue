@@ -1,11 +1,13 @@
 
 
 <script>
-import Card from "../components/card"
+import Card from "../components/card";
+import Header from "../components/header";
 export default {
   name: 'Home',
 components:{
-  Card
+  Card,
+  Header
 },
   data(){
     return{
@@ -25,13 +27,13 @@ methods: {
       this.allCoutries = data;
     }
 }
+
+
 }
 </script>
 
 <template>
-<h1>HomePage</h1>
-
-
+<Header/>
 <div class="home-cards-container">
 <Card 
 v-for="(country, index ) in allCoutries" 
@@ -53,6 +55,7 @@ v-for="(country, index ) in allCoutries"
   display:flex;
   justify-content:space-evenly;
   flex-wrap:wrap;
+  margin:40px;
 
 }
 </style>

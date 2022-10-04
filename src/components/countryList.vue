@@ -21,7 +21,9 @@ export default {
       :country="country.name.common"
       :population="country.population"
       :region="country.region"
+      :code="country.cca3"
       :capital="country.capital || undefined"
+      v-bind="$attrs"
     >
     </Card>
   </div>
@@ -51,7 +53,7 @@ export default {
   .countries-list {
     &__cards {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       grid-gap: 70px;
     }
   }

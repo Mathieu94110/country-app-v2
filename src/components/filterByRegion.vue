@@ -25,7 +25,7 @@ export default {
 <style scoped>
 .select-filter {
   height: 50px;
-  width: 200px;
+  width: 100%;
   background-color: hsl(0, 0%, 100%);
   color: #3f3f3f;
 }

@@ -16,6 +16,7 @@ export default {
       countries: [],
       searchedCountry: null,
       region: "",
+      countryDetails: {},
     };
   },
 
@@ -25,7 +26,7 @@ export default {
 
   methods: {
     async getCountries() {
-      const res = await fetch(baseUrl);
+      const res = await fetch(`${baseUrl}/all`);
       const data = await res.json();
       this.countries = data;
     },
@@ -54,6 +55,7 @@ export default {
             .every((r) => item.region.toLowerCase().match(r));
         });
       }
+      console.log(this.countries);
       return this.countries;
     },
   },
@@ -75,16 +77,17 @@ body {
 }
 .home {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+
   flex-wrap: wrap;
   margin: 40px;
 
   &__researches-container {
+    width: 100%;
     height: 160px;
     display: block;
     justify-content: space-between;
     align-items: center;
-    margin: 28px 20px 0 20px;
     > .searchInput,
     > div select {
       border-radius: 5px;
@@ -95,12 +98,11 @@ body {
 
 @media (min-width: 890px) {
   .home {
+    justify-content: space-between;
     &__researches-container {
-      width: 100%;
       height: 120px;
       display: flex;
       justify-content: space-between;
-      margin: 0;
     }
   }
 }

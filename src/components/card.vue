@@ -1,6 +1,6 @@
 <template>
   <div class="country-card">
-    <router-link to="/details">
+    <router-link :to="{ name: 'Details', params: { name: code } }">
       <div class="country-card__container">
         <img alt="product-image" :src="img" />
         <div class="country-card__text-content">
@@ -33,6 +33,7 @@ export default {
     country: String,
     region: String,
     capital: Array,
+    code: String,
   },
 
   computed: {

@@ -1,37 +1,85 @@
 <script>
+import { baseUrl } from "../api/api-calls";
+
 export default {
-  name: "CountryList",
-  props: {
-    flag: String,
-    name: String,
-    nativeName: String,
-    population: Number,
-    region: String,
-    subregion: String,
-    capital: String,
-    topLevelDomain: String,
-    currencie: Array,
-    languages: Array,
-    borders: Array,
+  name: "Details",
+  data() {
+    return {
+      countryDetails: null,
+    };
+  },
+  mounted() {
+    let contryName = this.$route.params.name;
+    if (contryName) {
+      this.getCountryDetails(contryName);
+    }
   },
   methods: {
     goBack() {
-      this.$router.push("./home");
+      this.$router.push("/");
     },
     searchCountryWithCode(item) {
       return this.$router.push(`/code/${item}`);
     },
+    async getCountryDetails(name) {
+      const code = name;
+      const fields = [
+        "name",
+        "region",
+        "subregion",
+        "capital",
+        "population",
+        "languages",
+        "currencies",
+        "flags",
+        "borders",
+        "tld",
+        "cca3",
+      ];
+
+      try {
+        const result = await fetch(
+          `${baseUrl}/alpha/${code.toLowerCase()}?fields=${fields.join(",")}`
+        );
+        this.countryDetails = await result.json();
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    valueOrNA(value) {
+      if (Array.isArray(value)) {
+        value = value.join(", ");
+      }
+      return value ? value.trim() : "N/A";
+    },
   },
   computed: {
     numberWithCommas() {
-      return this.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return this.countryDetails.population
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    nativeNames() {
+      return Object.values(this.countryDetails.name.nativeName)
+        .map((nativeName) => nativeName.common)
+        .sort()
+        .join(", ");
+    },
+    languages() {
+      return Object.values(this.countryDetails.languages).sort().join(", ");
+    },
+    currencies() {
+      return Object.values(this.countryDetails.currencies)
+        .map((currency) => `${currency.name} (${currency.symbol})`)
+        .sort()
+        .join(", ");
     },
   },
 };
 </script>
 
 <template>
-  <div class="card-details-page-container">
+  <div class="card-details-page-container" v-if="countryDetails">
     <div class="go-back-container">
       <button class="go-back-button" @click.prevent="goBack()">
         <font-awesome-icon icon="arrow-left" color="gray" />
@@ -39,94 +87,101 @@ export default {
       </button>
     </div>
     <section class="card-details-container">
-      <div key="{name}" class="card-details-items">
+      <div class="card-details-items">
         <div class="card-details-items-img">
-          <img alt="product-image" :src="flag" />
+          <img
+            :alt="`Flag of ${countryDetails.name.common}`"
+            :src="countryDetails.flags.png"
+          />
         </div>
 
         <article class="card-details-content">
           <div class="details-content-rows">
             <span class="details-content-items-left-bloc">
-              <h2 class="card-details-name">{{ name }}</h2>
-            </span>
-          </div>
-          <div class="details-content-rows">
-            <span class="details-content-items-left-bloc">
-              <h3>
-                Native Name:{" "}
-                <span class="style-italic">{{ nativeName }}</span>
-              </h3> </span
-            >{" "}
-            <span class="details-content-items">
-              <h3>
-                Top Level Domain:{" "}
-                <span class="style-italic">{{ topLevelDomain }}</span>
-              </h3>
+              <h2 class="card-details-name">
+                {{ countryDetails.name.common }}
+              </h2>
             </span>
           </div>
 
           <div class="details-content-rows">
             <span class="details-content-items-left-bloc">
               <h3>
-                Population:{" "}
-                <span class="style-italic">
-                  {{ numberWithCommas(population) }}
+                <span>Native name:</span>
+                <span class="items-value">
+                  {{ valueOrNA(nativeNames) }}
                 </span>
               </h3>
             </span>
 
-            <h3 v-if="currencie">
-              Currencies:{" "}
-              <span
-                class="style-italic"
-                v-for="item in currencie"
-                :key="item.name"
-              >
-                {{ item.name }}
+            <h3>
+              <span>Capital:</span>
+              <span class="items-value">
+                {{ valueOrNA(countryDetails.capital) }}
+              </span>
+            </h3>
+          </div>
+
+          <div class="details-content-rows">
+            <span class="details-content-items-left-bloc">
+              <h3>
+                <span>Population:</span>
+                <span class="items-value">
+                  {{ numberWithCommas }}
+                </span>
+              </h3>
+            </span>
+
+            <h3>
+              <span>Currencies:</span>
+              <span class="items-value">
+                {{ valueOrNA(currencies) }}
               </span>
             </h3>
           </div>
           <div class="details-content-rows">
             <span class="details-content-items-left-bloc">
               <h3>
-                Region: <span class="style-italic">{{ region }}</span>
+                <span>Région:</span>
+                <span class="items-value">
+                  {{ valueOrNA(countryDetails.region) }}</span
+                >
               </h3>
             </span>
             <h3>
-              Languages:{" "}
+              <span>Languages:</span>
 
-              <span
-                class="style-italic"
-                v-for="item in languages"
-                :key="item.name"
-              >
-                {item.name}
+              <span class="items-value">
+                {{ valueOrNA(languages) }}
               </span>
             </h3>
           </div>
           <div class="details-content-rows">
             <span class="details-content-items-left-bloc">
               <h3>
-                Sub Region:{" "}
-                <span class="style-italic">{{ subregion }}</span>
-              </h3>
-              {" "}
-            </span>
-          </div>
-          <div class="details-content-rows">
-            <span class="details-content-items-left-bloc">
-              <h3 v-if="capital">
-                Capital: <span class="style-italic">{{ capital }}</span>
+                <span>Sub regions:</span>
+                <span class="items-value">
+                  {{ valueOrNA(countryDetails.subregion) }}</span
+                >
               </h3>
             </span>
+            <h3>
+              <span>Top Level Domain:</span>
+              <span class="items-value">
+                {{ valueOrNA(countryDetails.tld) }}</span
+              >
+            </h3>
           </div>
+
           <div class="borders-countries-container">
             <h3 class="border-countries-title">Border Countries:</h3>
-
-            <div class="borders" v-if="borders">
-              <div v-for="(item, index) in borders" :key="index">
+            <div class="borders" v-if="countryDetails.borders">
+              <div v-for="(item, index) in countryDetails.borders" :key="index">
                 <ul>
-                  <li @click="searchCountryWithCode(item)">
+                  <li
+                    class="borders-items"
+                    @click="searchCountryWithCode(item)"
+                  >
                     {{ item }}
                   </li>
                 </ul>
@@ -141,7 +196,7 @@ export default {
 <style lang="scss">
 .card-details-page-container {
   margin: auto;
-  height: 100%;
+  height: calc(100vh - 64px);
   padding: 0 80px;
   .go-back-container {
     display: flex;
@@ -177,7 +232,6 @@ export default {
         margin-right: 100px;
       }
       .card-details-content {
-        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
@@ -185,10 +239,11 @@ export default {
 
         .details-content-rows {
           display: flex;
-
+          .items-value {
+            margin-left: 10px;
+          }
           .details-content-items {
             width: 50%;
-
             &-left-bloc {
               width: 50%;
               text-align: left;
@@ -218,13 +273,18 @@ export default {
             border-radius: 3px;
             box-shadow: rgb(60 64 67 / 15%) 0px 2px 6px 2px;
           }
+          .borders-items {
+            &:hover {
+              cursor: pointer;
+            }
+          }
         }
       }
     }
   }
 }
 
-@media (max-width: 1292px) {
+@media (max-width: 1500px) {
   .card-details-page-container {
     padding: 0 20px;
     .card-details-container {
@@ -234,6 +294,9 @@ export default {
         img {
           height: 300px;
           margin-right: 100px;
+        }
+        .details-content-rows {
+          display: block;
         }
         .borders-countries-container {
           display: flex;
@@ -247,7 +310,7 @@ export default {
   }
 }
 
-@media (max-width: 954px) and (min-width: 515px) {
+@media (max-width: 1200px) and (min-width: 515px) {
   .card-details-page-container {
     .go-back-container {
       height: 80px;
@@ -255,7 +318,8 @@ export default {
     }
 
     .card-details-container {
-      width: 100%;
+      margin: 0 15%;
+      width: 70%;
       height: 800px;
       display: block;
       .card-details-items {
@@ -264,7 +328,7 @@ export default {
           text-align: center;
           img {
             height: auto;
-            width: 50%;
+            width: 100%;
             margin: 0;
           }
         }
@@ -273,7 +337,7 @@ export default {
   }
 }
 
-@media (max-width: 514px) and (min-width: 350px) {
+@media (max-width: 514px) and (min-width: 320px) {
   .card-details-page-container {
     .go-back-container {
       height: 80px;

@@ -55,7 +55,6 @@ body {
   margin: 0px;
   padding: 0px;
   text-align: center;
-  border: 1px solid var(--switch-color);
   background-color: var(--background-color-secondary);
   color: var(--switch-color);
 }

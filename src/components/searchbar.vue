@@ -15,50 +15,58 @@ export default {
 </script>
 
 <template>
-  <div className="search-bar">
-    <font-awesome-icon icon="search" color="gray" />
-    <input
-      type="text"
-      name="country"
-      placeholder="Search for a country"
-      v-model="keyword"
-      v-on:keyup="passSearchedValue()"
-    />
+  <div class="search-bar">
+    <div class="search-bar__content">
+      <font-awesome-icon icon="search" color="gray" />
+      <input
+        type="text"
+        name="country"
+        placeholder="Search for a country"
+        v-model="keyword"
+        v-on:keyup="passSearchedValue()"
+      />
+    </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .search-bar {
-  display: flex;
-  align-items: center;
-  background-color: hsl(0, 0%, 100%);
-  width: 310px;
-  padding: 5px 5px 5px 20px;
-  gap: 5px;
-  height: 40px;
   margin-bottom: 30px;
-}
-
-.search-bar input {
-  border: 0;
-  background-color: hsl(0, 0%, 100%);
-  outline: none;
-  font-size: 12px;
-  height: 100%;
-  width: 100%;
-  padding-left: 10px;
-}
-
-::placeholder {
-  color: var(--text);
+  display: flex;
+  justify-content: center;
+  &__content {
+    display: flex;
+    align-items: center;
+    background-color: hsl(0, 0%, 100%);
+    width: 100%;
+    padding: 5px 5px 5px 20px;
+    gap: 5px;
+    height: 40px;
+    input {
+      border: 0;
+      background-color: hsl(0, 0%, 100%);
+      outline: none;
+      font-size: 12px;
+      height: 100%;
+      width: 100%;
+      padding-left: 10px;
+      &:placeholder {
+        color: var(--text);
+      }
+    }
+  }
 }
 
 @media (min-width: 890px) {
   .search-bar {
     width: 460px;
-    margin: 0;
-  }
-  .search-bar input {
-    font-size: 16px;
+    margin-bottom: 0;
+    &__content {
+      margin: 0;
+
+      input {
+        font-size: 16px;
+      }
+    }
   }
 }
 </style>

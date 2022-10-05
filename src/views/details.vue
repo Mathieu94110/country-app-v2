@@ -261,18 +261,13 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
-    .borders ul {
-      margin: 6px;
-      padding: 3px 10px;
-      border-radius: 3px;
-      box-shadow: rgb(60 64 67 / 15%) 0px 2px 6px 2px;
-    }
   }
   &__border-countries {
     font-size: 1rem;
     text-decoration: underline;
     text-align: left;
     min-width: 128px;
+    margin-right: 10px;
   }
   &__borders {
     display: flex;
@@ -284,7 +279,8 @@ export default {
     padding: 8px;
     margin: 0 3px;
     color: var(--switch-color);
-    background-color: var(--text-primary-color);
+    border: 1px solid var(--switch-color);
+    font-weight: 600;
     &:hover {
       cursor: pointer;
     }
@@ -323,10 +319,6 @@ export default {
     }
     &__borders-container {
       margin-top: 0px;
-      .borders ul {
-        margin: 6px;
-        padding: 3px 10px;
-      }
     }
   }
 }

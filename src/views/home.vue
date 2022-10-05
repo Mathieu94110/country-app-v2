@@ -90,7 +90,6 @@ body {
     align-items: center;
     > .searchInput,
     > div select {
-      border-radius: 5px;
       box-shadow: rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     }
   }
@@ -103,6 +102,10 @@ body {
       height: 120px;
       display: flex;
       justify-content: space-between;
+      > .searchInput,
+      > div select {
+        border-radius: 5px;
+      }
     }
   }
 }
